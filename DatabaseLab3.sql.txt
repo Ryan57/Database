@@ -1,0 +1,57 @@
+Lab 3 - queries 
+
+-- List the order number and total dollars of all orders.
+
+Select ordnum, totalUSD
+From orders;
+
+-- List the name and city of agents named Smith.
+
+Select name, city
+From agents 
+Where name = ‘Smith’;
+
+-- List the id, name, and priceUSD of products with quantity more than 201,000.
+
+Select pid, name, priceUSD
+From products 
+Where quantity > 201000;
+
+-- List the names and cities of customers in Duluth.
+
+Select name, city
+From customers 
+Where city = ‘Duluth’;
+
+-- List the names of agents not in New York and not in Duluth.
+
+Select name
+From agents 
+Where city not in (‘New York’, ‘Duluth’);
+
+-- List all data for products in neither Dallas nor Duluth that cost US$1 or more.
+
+Select *
+From products 
+Where city not in (‘Dallas’, ‘Duluth’)
+And priceUSD >= 1;
+
+-- List all data for orders in February or March.
+
+Select *
+From orders 
+Where mon in (‘feb’, ‘mar’);
+
+-- List all data for orders in February of US$600 or more.
+
+Select *
+From orders 
+Where mon in (‘feb’)
+And totalUSD >= 600;
+
+-- List all orders from the customer whose cid is C005.
+
+Select * 
+From orders 
+Where cid = ‘c005’;
+
