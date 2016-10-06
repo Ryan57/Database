@@ -1,0 +1,56 @@
+1 
+select city 
+from agents a Join orders o on a.aid = o.aid
+where o.cid = 'c006';
+
+
+2 
+select distinct o1.pid
+from orders o JOIN customers c ON o.cid = c.cid
+	      JOIN orders o1 ON o.aid = o1.aid
+where c.city = 'Kyoto'
+order by o1.pid asc;
+
+
+3
+select name
+from customers 
+where cid not in 
+	(select cid
+     	from orders);
+
+
+4
+select name
+from customers c full outer join orders o ON c.cid = o.cid
+where o.cid is null;
+
+
+
+
+5
+select c.name, a.name
+from customers c 
+join orders o on c.cid = o.cid 
+join agents a on a.aid = o.aid 
+where c.city = a.city;
+
+
+6
+select c.name, c.city, a.name, a.city
+from customers c 
+join orders o on c.cid = o.cid
+join agents a on a.aid = o.aid
+where c.city = a.city;
+
+
+7  
+select c.name, c.city
+from customers c 
+where c.city in
+     (select p.city 
+     from products p
+     group by p.city
+     order by count(p.city) asc 
+     limit 1);
+
