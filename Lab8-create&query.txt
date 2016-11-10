@@ -1,0 +1,73 @@
+-- Movie --
+CREATE TABLE movie (
+  mid      	 	    char(10) not null,
+  name      	   	    text,    
+  year released      	    datetime,
+  MPAAnum      	   	    integer,
+  BoxDomesticUSD     	    decimal(10,2),
+  BoxForeignUSD      	    decimal(10,2),
+  DVD/Blu-rayUSD 	    decimal(10,2),
+ primary key(mid** OR MPAAnum)
+);
+
+-- People --
+CREATE TABLE people (
+  pid      		char(10) not null,
+  name     	text,
+  spouse name	text,
+  mainAddress     char(20),
+ primary key(pid)
+);
+
+
+-- Director --
+CREATE TABLE director (
+  pid      		     char(10) not null references people(pid),
+  film school              text,
+  dir guild anniv	      datetime,
+  fav lens maker	      text,
+ primary key(pid)
+);
+
+
+-- Actor --
+CREATE TABLE actor (
+  pid	     	char(10) not null references people(pid),
+  DOB      	date-time,    
+  hair color      	text,
+  eye color       	text,
+**height      	decimal(10,2),
+  weight      	decimal(10,2),,
+  fav color       	text,
+  SAG anniv        datetime,
+ primary key(pid)
+);
+
+-- Characters --
+CREATE TABLE characters (
+  pid		 char(10) not null references people(pid),
+  mid		 char(10) not null references movie(mid),
+  charName   	 text,
+ primary key(pid, mid)
+);  
+
+
+
+-- Directors --
+CREATE TABLE directors (
+  pid        	char(10) not null references people(pid),
+  mid	 	char(10) not null references movie(mid),
+ primary key(pid, mid)
+);
+
+--Sean Connery Query --
+SELECT p.name
+FROM People p Join Director d on p.pid = d.pid
+		Join Directors d1 on p.pid = d1.pid
+		Join Actor a on p.pid = a.pid
+		Join Characters c on p.pid = c.pid
+		Join People p1 on p.pid = p1.pid
+WHERE p1.name = ‘Sean Connery’
+AND c.mid = d1.mid
+AND p.pid = d1.pid
+AND p1.pid = c.pid;
